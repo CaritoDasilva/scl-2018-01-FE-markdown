@@ -1,14 +1,32 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
+const argv = require('yargs')
+  .command('show', 'Recibe la URL relativa o absoluta del archivo a consultar', {
+    path: {
+      demand: true,
+      alias: 'p'
+    }
+  })
+  .help()
+  .argv;
+console.log(argv);
+listOfInstrucions();
+mdLinks();
 
+function listOfInstrucions(instruction) {
+  instruction = argv._[0];
+
+  switch (instruction) {
+    case 'show':
+      show();
+      break;
+
+  }
+};
 
 function mdLinks(path, option) {
-  let argv = process.argv;
-  let parametro = argv[2];
-  path = parametro.split('=')[1];
 
-  console.log(path);
 };
 
 function findExtName(element) {
@@ -18,6 +36,13 @@ function findExtName(element) {
 
 }
 
+function show(path) {
+  let argv2 = process.argv;
+  let parametro = argv2[3];
+  path = parametro.split('=')[1];
+
+  console.log(path);
+}
 // let base = 5;
 // let argv = process.argv;
 // let parametro = argv[2];
@@ -45,5 +70,7 @@ function findExtName(element) {
 
 
 
-module.exports = mdLinks;
-module.exports = findExtName;
+module.exports = {
+  mdLinks: mdLinks,
+  findExtName: findExtName
+}
