@@ -27,20 +27,26 @@ function readFile(file) {
 
 }
 
-function infoLink(links) {
-  links = {
+function infoLink(linksStatus) {
+  linksStatus = {
     href,
     text,
     file
   };
-  return links;
+  return linksStatus;
 
 
 }
 
 
 function findLinks(links) {
-
+  links = [];
+  files.forEach((file) => {
+    if (file === 'www') {
+      links.push(file);
+    }
+    return links;
+  });
 }
 
 function findExtName(element) {
