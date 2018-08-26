@@ -1,16 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const argv = require('yargs')
-  .command('show', 'Recibe la URL relativa o absoluta del archivo a consultar', {
-    path: {
-      demand: true,
-      alias: 'p'
-    }
-  })
-  .help()
-  .argv;
-console.log(argv);
+const argv = require('../js/yargs').argv;
 listOfInstrucions();
 mdLinks();
 
@@ -20,7 +11,10 @@ function listOfInstrucions(instruction) {
   switch (instruction) {
     case 'show':
       show();
+      console.log('Se analizará si su archivo tiene links');
       break;
+    default:
+      console.log('Comando no es reconocido');
 
   }
 };
@@ -29,33 +23,41 @@ function mdLinks(path, option) {
 
 };
 
-function findExtName(element) {
-  let extFile = path.extname(element);
-  console.log(element);
-  return extFile === '.md';
+function readFile(file) {
 
 }
+
+function infoLink(links) {
+  links = {
+    href,
+    text,
+    file
+  };
+  return links;
+
+
+}
+
+
+function findLinks(links) {
+
+}
+
+function findExtName(element) {
+  let extFile = path.extname(element);
+  return extFile === '.md';
+  console.log(element);
+
+};
 
 function show(path) {
   let argv2 = process.argv;
   let parametro = argv2[3];
   path = parametro.split('=')[1];
-
+  findExtName(element);
   console.log(path);
 }
-// let base = 5;
-// let argv = process.argv;
-// let parametro = argv[2];
 
-// console.log(parametro);
-
-// var pathSupplied = process.argv[2];
-// var extFilter = process.argv[3];
-
-// function extension(element) {
-//   var extName = path.extname(element);
-//   return extName === '.' + extFilter;
-// };
 
 // fs.readdir(pathSupplied, function (err, list) {
 //   list.filter(extension).forEach(function (value) {
@@ -71,6 +73,6 @@ function show(path) {
 
 
 module.exports = {
-  mdLinks: mdLinks,
-  findExtName: findExtName
+  mdLinks,
+  findExtName
 }
