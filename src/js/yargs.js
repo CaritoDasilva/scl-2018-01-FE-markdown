@@ -1,8 +1,8 @@
 const argv = require('yargs')
   .command('show', 'Recibe la URL relativa o absoluta del archivo a consultar', {
-    path: {
+    filename: {
       demand: true,
-      alias: 'p'
+      alias: 'f'
     }
   })
   .help()
