@@ -2,6 +2,9 @@
 // (tomada desde biblioteca del mismo nombre y modificada para el ejercicio)
 // Recibe texto en markdown y retorna sus links en un arreglo
 const Marked = require('marked');
+const show = require('../js/index').show;
+
+
 const markdownLinkExtractor = (data) => {
   const links = [];
 
@@ -18,7 +21,7 @@ const markdownLinkExtractor = (data) => {
     links.push({
       href: href,
       text: text,
-      title: title,
+      file: filename,
     });
   };
   renderer.image = function (href, title, text) {

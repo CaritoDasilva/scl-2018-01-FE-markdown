@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const argv = require('../js/yargs').argv;
 const markdownLinkExtractor = require('../js/extractorLinks').markdownLinkExtractor;
+const fetch = require('node-fetch');
 listOfInstrucions();
 
 
@@ -41,13 +42,14 @@ function readFiles(filename) {
 
 
 
-function show(filename) {
+function show() {
   let argv2 = process.argv;
   let parametro = argv2[3];
   filename = parametro.split('=')[1];
   console.log(filename);
   readFiles(filename);
-}
+};
+
 
 
 // fs.readdir(pathSupplied, function (err, list) {
