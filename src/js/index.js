@@ -40,21 +40,21 @@ function readFiles(filename) {
   Array.of(data).forEach(element => {
     let links = markdownLinkExtractor(element);
     console.log(`###${JSON.stringify(links)}`);
+    links.forEach(link2 => {
+      console.log(`holi${JSON.stringify(link2.href)}`);
+      fetch(`${link2.href}`)
+        .then((response) => {
+          console.log(link2.href + ': ' + (response.status) + ' ' + (response.statusText));
+        }).catch(err => console.log(err));
 
-    // fetch(`${href}`)
-    //   .then((response) => {
-    //     console.log(response);
-    //   }).catch(err => console.log(err));
+    });
+
   });
-
 
 };
 
-// const urlLinks = (links) => {
-//   markdownLinkExtractor(data);
-//   links.forEach(link2 => {
-//     console.log(link2);
-//   });
+// function urlLinks(links) {
+// });
 // };
 
 
@@ -82,9 +82,10 @@ function show() {
 
 
 module.exports = {
-  mdLinks,
-  listOfInstrucions,
-  readFiles,
+  mdLinks: mdLinks,
+  listOfInstrucions: listOfInstrucions,
+  readFiles: readFiles,
+
 };
 
 // process.cwd() -> da la ruta donde se está ejecutando el usuario
