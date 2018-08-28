@@ -3,10 +3,12 @@
 // Recibe texto en markdown y retorna sus links en un arreglo
 const Marked = require('marked');
 const show = require('../js/index').show;
+const urlLinks = require('../js/index').urlLinks;
+const argv = require('../js/yargs').argv;
 
 
 const markdownLinkExtractor = (data) => {
-  const links = [];
+  let links = [];
 
   const renderer = new Marked.Renderer();
 
@@ -36,10 +38,11 @@ const markdownLinkExtractor = (data) => {
   Marked(data, {
     renderer: renderer
   });
-
-  console.log(links);
+  return links;
 };
 
+
 module.exports = {
-  markdownLinkExtractor
+  markdownLinkExtractor: markdownLinkExtractor,
+
 };

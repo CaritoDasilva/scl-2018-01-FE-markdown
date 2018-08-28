@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const argv = require('../js/yargs').argv;
 const markdownLinkExtractor = require('../js/extractorLinks').markdownLinkExtractor;
+const saveLinks = require('../js/extractorLinks').saveLinks;
 const fetch = require('node-fetch');
 listOfInstrucions();
 
@@ -26,20 +27,35 @@ function listOfInstrucions(instruction) {
 
 function mdLinks(path, option) {
 
+
+  // return new Promise((resolve, reject) => {
+
+  // })
 };
 
 function readFiles(filename) {
   let data = fs.readFileSync(`${path.join(process.cwd(), filename)}`, 'utf-8');
 
+
   Array.of(data).forEach(element => {
-    markdownLinkExtractor(data);
-    console.log(element);
+    let links = markdownLinkExtractor(element);
+    console.log(`###${JSON.stringify(links)}`);
+
+    // fetch(`${href}`)
+    //   .then((response) => {
+    //     console.log(response);
+    //   }).catch(err => console.log(err));
   });
 
-  return data;
+
 };
 
-
+// const urlLinks = (links) => {
+//   markdownLinkExtractor(data);
+//   links.forEach(link2 => {
+//     console.log(link2);
+//   });
+// };
 
 
 function show() {
@@ -68,7 +84,7 @@ function show() {
 module.exports = {
   mdLinks,
   listOfInstrucions,
-  readFiles
+  readFiles,
 };
 
 // process.cwd() -> da la ruta donde se está ejecutando el usuario
