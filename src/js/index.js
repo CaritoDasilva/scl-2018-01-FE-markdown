@@ -6,6 +6,7 @@ const argv = require('../js/yargs').argv;
 const markdownLinkExtractor = require('../js/extractorLinks').markdownLinkExtractor;
 const saveLinks = require('../js/extractorLinks').saveLinks;
 const fetch = require('node-fetch');
+const colors = require('colors');
 listOfInstrucions();
 
 
@@ -28,14 +29,14 @@ function listOfInstrucions(instruction) {
 function mdLinks(path, option) {
 
 
-  // return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
-  // })
+  })
 };
 
 function readFiles(filename) {
   let data = fs.readFileSync(`${path.join(process.cwd(), filename)}`, 'utf-8');
-
+  console.log(`${path.join(process.cwd(), filename)}`);
 
   Array.of(data).forEach(element => {
     let links = markdownLinkExtractor(element);
@@ -44,8 +45,8 @@ function readFiles(filename) {
       console.log(`holi${JSON.stringify(link2.href)}`);
       fetch(`${link2.href}`)
         .then((response) => {
-          console.log(link2.href + ': ' + (response.status) + ' ' + (response.statusText));
-        }).catch(err => console.log(err));
+          console.log((link2.href + ': ' + response.status + ' ' + response.statusText).green);
+        }).catch(err => console.log((link2.href + ': 404 ERROR').red));
 
     });
 
@@ -73,12 +74,6 @@ function show() {
 //     console.log(value);
 //   });
 // });
-
-
-// url('../../../../markdonwnLinks/scl-2018-01-FE-markdown/src/js/file2.txt')
-
-
-
 
 
 module.exports = {
