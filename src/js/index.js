@@ -1,5 +1,6 @@
 #!/usr/bin/env node
  // Bibliotecas e importaciones requeridas para usar el proyecto
+var os = require('os')
 const path = require('path');
 const fs = require('fs');
 const argv = require('../js/yargs').argv;
@@ -20,6 +21,10 @@ function listOfInstrucions(instruction) {
       show();
       console.log('Se analizará si su archivo tiene links');
       break;
+    case 'check':
+      check();
+      console.log('Se están analizando los links de su archivo .md');
+      break;
     default:
       console.log('Comando no es reconocido');
 
@@ -29,35 +34,54 @@ function listOfInstrucions(instruction) {
 function mdLinks(path, option) {
 
 
-  return new Promise((resolve, reject) => {
-
-  })
+  // return new Promise((resolve, reject) => {
+  //   let filePromise = readFiles(filename)
+  //   filePromise.then
+  // })
 };
 
 function readFiles(filename) {
+  // return new Promise((resolve, reject) => {
   let data = fs.readFileSync(`${path.join(process.cwd(), filename)}`, 'utf-8');
   console.log(`${path.join(process.cwd(), filename)}`);
 
-  Array.of(data).forEach(element => {
+
+  let txt = data.split('\r\n');
+
+  txt.forEach((element, index) => {
+    console.log(element);
+    console.log(txt);
+    let line = index + 1;
+
     let links = markdownLinkExtractor(element);
     console.log(`###${JSON.stringify(links)}`);
-    links.forEach(link2 => {
+    links.forEach((link2) => {
+
       console.log(`holi${JSON.stringify(link2.href)}`);
       fetch(`${link2.href}`)
         .then((response) => {
+
+          let responseLinks = {
+            url: link2.href,
+            status: response.status + response.statusText,
+            line: line
+          };
+          console.log(responseLinks);
           console.log((link2.href + ': ' + response.status + ' ' + response.statusText).green);
-        }).catch(err => console.log((link2.href + ': 404 ERROR').red));
+        })
+        .catch(err => console.log((link2.href + ': 404 ERROR').red));
 
     });
 
   });
-
+  // }
 };
 
 // function urlLinks(links) {
-// });
+
 // };
 
+// Funciones de los comandos
 
 function show() {
   let argv2 = process.argv;
@@ -65,7 +89,13 @@ function show() {
   filename = parametro.split('=')[1];
   console.log(filename);
   readFiles(filename);
+  return filename;
 };
+
+function check(filename, responseLinks) {
+  readFiles(filename);
+  console.log(responseLinks);
+}
 
 
 

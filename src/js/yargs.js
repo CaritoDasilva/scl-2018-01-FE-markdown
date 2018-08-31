@@ -5,6 +5,16 @@ const argv = require('yargs')
       alias: 'f'
     }
   })
+  .command('check', 'Valida los links encontrados', {
+    filename: {
+      demand: true,
+      alias: 'f'
+    },
+    validate: {
+      demand: true,
+      alias: 'v'
+    }
+  })
   .help()
   .argv;
 console.log(argv);

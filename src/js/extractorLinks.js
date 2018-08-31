@@ -32,7 +32,7 @@ const markdownLinkExtractor = (data) => {
     links.push({
       href: href,
       text: text,
-      title: title,
+      file: filename,
     });
   };
   Marked(data, {
