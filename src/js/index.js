@@ -15,13 +15,15 @@ listOfInstrucions();
 
 
 
-function mdLinks(path, option) {
+function mdLinks(filename, option) {
 
 
-  // return new Promise((resolve, reject) => {
-  //   let filePromise = readFiles(filename)
-  //   filePromise.then
-  // })
+  return new Promise((resolve, reject) => {
+    if (error) {
+      return reject(error);
+    }
+    return resolve(readFilePromise);
+  });
 };
 
 function readFilePromise(filename) {
@@ -29,14 +31,12 @@ function readFilePromise(filename) {
     fs.readFile(`${path.join(process.cwd(), filename)}`, 'utf-8', (error, data) => {
 
       if (error) {
-        return reject(error); //Sabemos que hay un error, así que rechazamos la promesa
+        return reject(error);
+        //Sabemos que hay un error, así que rechazamos la promesa
         //Si hay error, también nos aseguramos con return de no seguir ejecutando nada más en esta función
       }
-      return resolve(data); //En caso de que no haya error resolvemos la promesa con los datos que recibimos en el callback
-
-
-
-
+      return resolve(data);
+      //En caso de que no haya error resolvemos la promesa con los datos que recibimos en el callback
     });
   });
 };
@@ -83,64 +83,20 @@ readFilePromise(filename)
   });
 
 
-// function readFiles(filename) {
-//   // return new Promise((resolve, reject) => {
-//   let data = fs.readFileSync(`${path.join(process.cwd(), filename)}`, 'utf-8');
-//   console.log(`${path.join(process.cwd(), filename)}`);
 
-
-//   let txt = data.split(os.EOL);
-
-//   txt.forEach((element, index) => {
-//     console.log(element);
-//     console.log(txt);
-//     let line = index + 1;
-
-//     let links = markdownLinkExtractor(element);
-//     console.log(`###${JSON.stringify(links)}`);
-//     links.forEach((link2) => {
-//       console.log(link2);
-//       console.log(`holi${JSON.stringify(link2.href)}`);
-//       fetch(`${link2.href}`)
-//         .then((response) => {
-//           if (response.status < 400) {
-//             validate = true;
-//           } else {
-//             validate = false;
-//           }
-//           let responseLinks = {
-//             href: link2.href,
-//             text: link2.text,
-//             file: link2.file,
-//             status: response.status + ' ' + response.statusText,
-//             line: line,
-//             validate: validate
-//           };
-
-//           if (validate === true) {
-//             console.log(colors.green(responseLinks));
-//           } else {
-//             console.log(colors.red(responseLinks));
-//           }
-
-//         })
-//         .catch(err => console.log((link2.href + ':ERROR ' + 'line:' + line).red));
-//     });
-//   });
-//   // }
-// };
 
 // Funciones de los comandos
 
 function listOfInstrucions(instruction) {
-  instruction = argv._[0];
+  instruction = Object.entries(argv)[1][0];
+  console.log(`###${instruction}`);
 
   switch (instruction) {
-    case 'show':
+    case 'validate':
       show();
       console.log('Se analizará si su archivo tiene links');
       break;
-    case 'check':
+    case 'v':
       check();
       console.log('Se están analizando los links de su archivo .md');
       break;
@@ -151,10 +107,11 @@ function listOfInstrucions(instruction) {
 
 function show() {
   let argv2 = process.argv;
-  let parametro = argv2[3];
+  let parametro = argv2[2];
+  console.log(parametro);
   filename = parametro.split('=')[1];
   console.log(filename);
-  readFilePromise(filename);
+
 
 };
 
