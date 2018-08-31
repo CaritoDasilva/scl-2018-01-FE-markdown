@@ -46,7 +46,7 @@ function readFiles(filename) {
   console.log(`${path.join(process.cwd(), filename)}`);
 
 
-  let txt = data.split('\r\n');
+  let txt = data.split(os.EOL);
 
   txt.forEach((element, index) => {
     console.log(element);
@@ -60,19 +60,27 @@ function readFiles(filename) {
       console.log(`holi${JSON.stringify(link2.href)}`);
       fetch(`${link2.href}`)
         .then((response) => {
-
+          if (response.status < 400) {
+            validate = true;
+          } else {
+            validate = false;
+          }
           let responseLinks = {
             url: link2.href,
-            status: response.status + response.statusText,
-            line: line
+            status: response.status + ' ' + response.statusText,
+            line: line,
+            validate: validate
           };
-          console.log(responseLinks);
-          console.log((link2.href + ': ' + response.status + ' ' + response.statusText).green);
+
+          if (validate === true) {
+            console.log(colors.green(responseLinks));
+          } else {
+            console.log(colors.red(responseLinks));
+          }
+
         })
-        .catch(err => console.log((link2.href + ': 404 ERROR').red));
-
+        .catch(err => console.log((link2.href + ':ERROR ' + 'line:' + line).red));
     });
-
   });
   // }
 };
@@ -118,27 +126,7 @@ module.exports = {
 
 // 1er parámetro .cwd, 2do parametro nombre de archivo
 
-// function infoLink(linksStatus) {
-//     linksStatus = {
-//       href,
-//       text,
-//       file
-//     };
-//     return linksStatus;
 
-
-//   }
-
-
-//   function findLinks(data) {
-//     links = [];
-//     data.forEach((file) => {
-//       if (file === 'www') {
-//         links.push(file);
-//       }
-//       return links;
-//     });
-//   }
 
 //   function findExtName(element) {
 //     let extFile = path.extname(element);
