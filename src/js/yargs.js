@@ -5,7 +5,7 @@ const argv = require('yargs')
   })
   .help()
   .argv;
-// console.log(argv);
+console.log(argv);
 
 module.exports = {
   argv: argv

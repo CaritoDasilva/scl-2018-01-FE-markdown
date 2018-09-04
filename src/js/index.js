@@ -7,19 +7,18 @@ const fs = require('fs');
 const markdownLinkExtractor = require('../js/extractorLinks').markdownLinkExtractor;
 const fetch = require('node-fetch');
 const colors = require('colors');
-mdLinks();
+listOfInstrucions();
 
 
-function mdLinks(filename, option) {
-  listOfInstrucions();
+// function mdLinks(filename, option) {
 
-  // return new Promise((resolve, reject) => {
-  //   if (error) {
-  //     return reject(error);
-  //   }
-  //   return resolve(readFilePromise);
-  // });
-};
+//   // return new Promise((resolve, reject) => {
+//   //   if (error) {
+//   //     return reject(error);
+//   //   }
+//   //   return resolve(readFilePromise);
+//   // });
+// };
 
 function readFilePromise(filename) {
   return new Promise((resolve, reject) => {
@@ -34,20 +33,17 @@ function readFilePromise(filename) {
     });
   });
 };
+
 readFilePromise(filename)
   .then((data) => {
     let txt = data.split(os.EOL);
 
     txt.forEach((element, index) => {
-      // console.log(element);
-      // console.log(txt);
       let line = index + 1;
 
       let links = markdownLinkExtractor(element);
-      // console.log(`###${JSON.stringify(links)}`);
+
       links.forEach((link2) => {
-        // console.log(link2);
-        // console.log(`holi${JSON.stringify(link2.href)}`);
         fetch(`${link2.href}`)
           .then((response) => {
             if (response.status < 400) {
@@ -89,33 +85,38 @@ readFilePromise(filename)
 // Funciones de los comandos
 
 function listOfInstrucions(instruction) {
-  instruction = Object.entries(argv)[1][0];
-  // console.log(`###${instruction}`);
+  if (require.main === module) {
+    // Soy un programa en la terminal
 
-  switch (instruction) {
-  case 'validate':
-    show();
-    console.log('Se analizará si su archivo tiene links');
-    break;
-  case 'v':
-    show();
-    console.log('Se analizará si su archivo tiene links');
-    break;
-  default:
-    console.log('Comando no es reconocido');
+
+    instruction = Object.entries(argv)[1][0];
+    console.log(`###${instruction}`);
+
+
+    switch (instruction) {
+    case 'validate':
+      show();
+      console.log('Se analizará si su archivo tiene links');
+      break;
+    case 'v':
+      show();
+      console.log('Se analizará si su archivo tiene links');
+      break;
+    default:
+      console.log('Comando no es reconocido');
+    }
   }
 };
 
 function show() {
   let argv2 = process.argv;
   let parametro = argv2[2];
-  // console.log(parametro);
+
   filename = parametro.split('=')[1];
-  // console.log(filename);
 };
 
 module.exports = {
-  mdLinks: mdLinks,
+  // mdLinks: mdLinks,
   listOfInstrucions: listOfInstrucions,
   readFilePromise: readFilePromise
 
