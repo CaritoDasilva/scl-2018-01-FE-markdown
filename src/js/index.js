@@ -22,15 +22,28 @@ listOfInstrucions();
 
 function readFilePromise(filename) {
   return new Promise((resolve, reject) => {
-    fs.readFile(`${path.join(process.cwd(), filename)}`, 'utf-8', (error, data) => {
-      if (error) {
-        return reject(error);
-        // Sabemos que hay un error, así que rechazamos la promesa
-        // Si hay error, también nos aseguramos con return de no seguir ejecutando nada más en esta función
-      }
-      return resolve(data);
-      // En caso de que no haya error resolvemos la promesa con los datos que recibimos en el callback
-    });
+    if (path.isAbsolute(filename) === false) {
+      fs.readFile(`${path.join(process.cwd(), filename)}`, 'utf-8', (error, data) => {
+        console.log(`${path.join(process.cwd(), filename)}`);
+        if (error) {
+          return reject(error);
+          // Sabemos que hay un error, así que rechazamos la promesa
+          // Si hay error, también nos aseguramos con return de no seguir ejecutando nada más en esta función
+        }
+        return resolve(data);
+        // En caso de que no haya error resolvemos la promesa con los datos que recibimos en el callback
+      });
+    } else {
+      fs.readFile((filename), 'utf-8', (error, data) => {
+        if (error) {
+          return reject(error);
+          // Sabemos que hay un error, así que rechazamos la promesa
+          // Si hay error, también nos aseguramos con return de no seguir ejecutando nada más en esta función
+        }
+        return resolve(data);
+        // En caso de que no haya error resolvemos la promesa con los datos que recibimos en el callback
+      });
+    }
   });
 };
 
@@ -90,7 +103,7 @@ function listOfInstrucions(instruction) {
 
 
     instruction = Object.entries(argv)[1][0];
-    console.log(`###${instruction}`);
+    // console.log(`###${instruction}`);
 
 
     switch (instruction) {
@@ -116,7 +129,7 @@ function show() {
 };
 
 module.exports = {
-  // mdLinks: mdLinks,
+
   listOfInstrucions: listOfInstrucions,
   readFilePromise: readFilePromise
 
