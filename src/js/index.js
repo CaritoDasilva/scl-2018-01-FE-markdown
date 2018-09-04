@@ -36,11 +36,8 @@ function mdLinks(filename) {
       fs.readFile((filename), 'utf-8', (error, data) => {
         if (error) {
           return reject(error);
-          // Sabemos que hay un error, así que rechazamos la promesa
-          // Si hay error, también nos aseguramos con return de no seguir ejecutando nada más en esta función
         }
         return resolve(data);
-        // En caso de que no haya error resolvemos la promesa con los datos que recibimos en el callback
       });
     }
   });
@@ -54,6 +51,9 @@ mdLinks(filename)
       let line = index + 1;
 
       let links = markdownLinkExtractor(element);
+      if (links.length === 0) {
+        console.log('Su archivo no tiene links');
+      }
 
       links.forEach((link2) => {
         fetch(`${link2.href}`)
