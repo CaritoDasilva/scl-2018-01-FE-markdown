@@ -19,14 +19,14 @@ const markdownLinkExtractor = (data) => {
   Marked.InlineLexer.rules.gfm.link = linkWithImageSizeSupport;
   Marked.InlineLexer.rules.breaks.link = linkWithImageSizeSupport;
 
-  renderer.link = function (href, title, text) {
+  renderer.link = function(href, title, text) {
     links.push({
       href: href,
       text: text,
       file: filename,
     });
   };
-  renderer.image = function (href, title, text) {
+  renderer.image = function(href, title, text) {
     // Remove image size at the end, e.g. ' =20%x50'
     href = href.replace(/ =\d*%?x\d*%?$/, '');
     links.push({
@@ -38,6 +38,7 @@ const markdownLinkExtractor = (data) => {
   Marked(data, {
     renderer: renderer
   });
+
   return links;
 };
 

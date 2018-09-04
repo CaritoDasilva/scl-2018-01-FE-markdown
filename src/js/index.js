@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Bibliotecas e importaciones requeridas para usar el proyecto
+ // Bibliotecas e importaciones requeridas para usar el proyecto
 const argv = require('../js/yargs').argv;
 var os = require('os');
 const path = require('path');
@@ -10,15 +10,6 @@ const colors = require('colors');
 listOfInstrucions();
 
 
-// function mdLinks(filename, option) {
-
-//   // return new Promise((resolve, reject) => {
-//   //   if (error) {
-//   //     return reject(error);
-//   //   }
-//   //   return resolve(readFilePromise);
-//   // });
-// };
 
 function mdLinks(filename) {
   return new Promise((resolve, reject) => {
@@ -51,13 +42,13 @@ mdLinks(filename)
       let line = index + 1;
 
       let links = markdownLinkExtractor(element);
-      if (links.length === 0) {
-        console.log('Su archivo no tiene links');
-      }
+
 
       links.forEach((link2) => {
+
         fetch(`${link2.href}`)
           .then((response) => {
+
             if (response.status < 400) {
               validate = true;
             } else {
@@ -71,7 +62,6 @@ mdLinks(filename)
               line: line,
               validate: validate
             };
-
             if (validate === true) {
               console.log(colors.green(responseLinks));
             } else {
@@ -89,6 +79,7 @@ mdLinks(filename)
             };
             console.log(colors.red(catchLinks));
           });
+
       });
     });
   });
@@ -106,16 +97,16 @@ function listOfInstrucions(instruction) {
 
 
     switch (instruction) {
-    case 'validate':
-      show();
-      console.log('Se analizará si su archivo tiene links');
-      break;
-    case 'v':
-      show();
-      console.log('Se analizará si su archivo tiene links');
-      break;
-    default:
-      console.log('Comando no es reconocido');
+      case 'validate':
+        show();
+        console.log('Se analizará si su archivo tiene links');
+        break;
+      case 'v':
+        show();
+        console.log('Se analizará si su archivo tiene links');
+        break;
+      default:
+        console.log('Comando no es reconocido');
     }
   }
 };
