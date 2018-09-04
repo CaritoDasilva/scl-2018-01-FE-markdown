@@ -20,11 +20,10 @@ listOfInstrucions();
 //   // });
 // };
 
-function readFilePromise(filename) {
+function mdLinks(filename) {
   return new Promise((resolve, reject) => {
     if (path.isAbsolute(filename) === false) {
       fs.readFile(`${path.join(process.cwd(), filename)}`, 'utf-8', (error, data) => {
-        console.log(`${path.join(process.cwd(), filename)}`);
         if (error) {
           return reject(error);
           // Sabemos que hay un error, así que rechazamos la promesa
@@ -47,7 +46,7 @@ function readFilePromise(filename) {
   });
 };
 
-readFilePromise(filename)
+mdLinks(filename)
   .then((data) => {
     let txt = data.split(os.EOL);
 
@@ -131,6 +130,6 @@ function show() {
 module.exports = {
 
   listOfInstrucions: listOfInstrucions,
-  readFilePromise: readFilePromise
+  mdLinks: mdLinks
 
 };
