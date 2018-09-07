@@ -1,5 +1,5 @@
 {
-  "name": "markdown",
+  "name": "markdown-seeker",
   "version": "1.0.0",
   "description": "\"Searcher for broken links\"",
   "main": "src/js/index.js",

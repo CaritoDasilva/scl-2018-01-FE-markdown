@@ -1,4 +1,5 @@
 # MARKDOWN Links Extractor
+Link de descarga: https://www.npmjs.com/package/markdown-seeker
 
 ## Introduction
 
@@ -22,9 +23,13 @@
 
 ## Installation
 
-> Para instalarlo debes clonar desde nuestro repositorio el proyecto y guardarlo en la carpeta de tu proyecto. Una vez guardado el usuario lo debe abrir desde la terminal. Para realizar la revisión de los links se debe realizar lo siguiente:
+> Para instalarlo debes inicializar npm en tu proyecto. Luego colocar nuestra libreria como dependencia:
 
-En la terminal:
+npm install markdown-seeker
+
+Para usar nuestra Librería tienes dos opciones.
+
+1. Como programa desde la terminal:
 
 markdown --validate=nombreArchivoMd
 
@@ -42,3 +47,9 @@ Posteriormente se imprimirá en consola un objeto con los detalles de los links 
   status: '404 Not Found',
   line: 8,
   validate: false }
+
+  2. Como módulo en tu proyecto:
+  
+  Para ello deberás importar la función principal.
+
+  const mdLinks = require('markdown-seeker');
