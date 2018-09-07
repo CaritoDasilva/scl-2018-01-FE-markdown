@@ -53,3 +53,6 @@ Posteriormente se imprimirá en consola un objeto con los detalles de los links 
   Para ello deberás importar la función principal.
 
   const mdLinks = require('markdown-seeker');
+
+  ## Planificación
+  https://trello.com/b/RSzD8Vg5/markdown-links
